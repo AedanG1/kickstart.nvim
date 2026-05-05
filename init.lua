@@ -567,7 +567,7 @@ require('lazy').setup({
           --    See `:help CursorHold` for information about when this is executed
           --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
-          -- local client = vim.lsp.get_client_by_id(event.data.client_id)
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
           -- if client and client:supports_method('textDocument/documentHighlight', event.buf) then
           --   local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
           --   vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
@@ -616,6 +616,7 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         ts_ls = {},
+        tailwindcss= {},
 
         stylua = {}, -- Used to format Lua code
 
@@ -843,7 +844,12 @@ require('lazy').setup({
     ---@module 'todo-comments'
     ---@type TodoOptions
     ---@diagnostic disable-next-line: missing-fields
-    opts = { signs = false },
+    opts = {
+      signs = false,
+      keywords = {
+        TODO = { color = "warning" }
+      }
+    },
   },
 
   { -- Collection of various small independent plugins/modules
@@ -959,7 +965,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommended keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
