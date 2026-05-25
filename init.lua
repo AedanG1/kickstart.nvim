@@ -84,10 +84,10 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 --
-vim.opt.tabstop = 2      -- Number of spaces that a <Tab> in the file counts for
-vim.opt.shiftwidth = 2   -- Number of spaces to use for each step of (auto)indent
+vim.opt.tabstop = 4 -- Number of spaces that a <Tab> in the file counts for
+vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent
 vim.opt.expandtab = true -- Use spaces instead of tabs
-vim.opt.softtabstop = 2  -- Number of spaces that a <Tab> counts for while performing editing operations
+vim.opt.softtabstop = 4 -- Number of spaces that a <Tab> counts for while performing editing operations
 --
 -- Set <space> as the leader key
 -- See `:help mapleader`
@@ -160,7 +160,7 @@ vim.o.inccommand = 'split'
 
 -- Show which line your cursor is on
 vim.o.cursorline = false
-vim.o.guicursor = ""
+vim.o.guicursor = ''
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.o.scrolloff = 10
@@ -616,7 +616,7 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         ts_ls = {},
-        tailwindcss= {},
+        tailwindcss = {},
 
         stylua = {}, -- Used to format Lua code
 
@@ -711,10 +711,10 @@ require('lazy').setup({
       formatters_by_ft = {
         rust = { 'rustfmt' },
         -- Conform can also run multiple formatters sequentially
-        python = { "isort", "black" },
+        python = { 'isort', 'black' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { "prettierd", "prettier", stop_after_first = true },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },
@@ -817,22 +817,16 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
+    'projekt0n/github-nvim-theme',
+    name = 'github-theme',
+    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        transparent = true,
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-          sidebars = "transparent" ,
-        },
-      }
+      require('github-theme').setup({
+        -- ...
+      })
 
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-storm'
+      vim.cmd('colorscheme github_dark_dimmed')
     end,
   },
 
@@ -847,8 +841,8 @@ require('lazy').setup({
     opts = {
       signs = false,
       keywords = {
-        TODO = { color = "warning" }
-      }
+        TODO = { color = 'error' },
+      },
     },
   },
 
