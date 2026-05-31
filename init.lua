@@ -461,7 +461,6 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-          winblend = 10,
           previewer = false,
         })
       end, { desc = '[/] Fuzzily search in current buffer' })
@@ -822,11 +821,11 @@ require('lazy').setup({
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
-      require('github-theme').setup({
+      require('github-theme').setup {
         -- ...
-      })
+      }
 
-      vim.cmd('colorscheme github_dark_dimmed')
+      vim.cmd 'colorscheme github_dark_dimmed'
     end,
   },
 
