@@ -399,7 +399,7 @@ require('lazy').setup({
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
         -- },
-        -- pickers = {}
+        -- pickers = {},
         extensions = {
           ['ui-select'] = { require('telescope.themes').get_dropdown() },
         },
@@ -822,10 +822,16 @@ require('lazy').setup({
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       require('github-theme').setup {
+        groups = {
+          all = {
+            ['@comment'] = { fg = '#4a4f5a' },
+            Comment = { fg = '#4a4f5a' },
+          },
+        },
         -- ...
       }
 
-      vim.cmd 'colorscheme github_dark_dimmed'
+      vim.cmd 'colorscheme github_dark_default'
     end,
   },
 
