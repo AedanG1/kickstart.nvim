@@ -497,7 +497,13 @@ require('lazy').setup({
         ---@module 'mason.settings'
         ---@type MasonSettings
         ---@diagnostic disable-next-line: missing-fields
-        opts = {},
+        opts = {
+          registries = {
+            'github:mason-org/mason-registry',
+            -- Provides up-to-date builds of the roslyn language server (used by roslyn.nvim)
+            'github:Crashdummyy/mason-registry',
+          },
+        },
       },
       -- Maps LSP server names between nvim-lspconfig and Mason package names.
       'mason-org/mason-lspconfig.nvim',
@@ -664,6 +670,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         -- You can add other tools here that you want Mason to install
+        'roslyn-language-server', -- C# language server (configured by roslyn.nvim, not lspconfig)
       })
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -673,6 +680,19 @@ require('lazy').setup({
         vim.lsp.enable(name)
       end
     end,
+  },
+
+  { -- C# language server (Roslyn)
+    -- Requires the `roslyn-language-server` Mason package (auto-installed above via
+    -- the Crashdummyy mason registry) and the .NET SDK (`dotnet` on your PATH).
+    -- Use `:Roslyn target` to pick a solution if a project has more than one.
+    'seblyng/roslyn.nvim',
+    ft = 'cs',
+    ---@module 'roslyn.config'
+    ---@type RoslynNvimConfig
+    opts = {
+      -- your configuration comes here; leave empty for default settings
+    },
   },
 
   { -- Autoformat
